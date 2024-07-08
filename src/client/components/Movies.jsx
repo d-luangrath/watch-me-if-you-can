@@ -1,18 +1,23 @@
-
-import React, {useState} from "react";
-import MovieCard from './MovieCard';
+import React, { useState } from "react";
+import MovieCard from "./MovieCard";
 
 function Movies({movies}) {
-    return (
-        <div>
-            <h1></h1>
-            <ul>
-                {movies.map((movie, index) => {
-                    return <MovieCard movie={movie} key={index}/>
-                })}
-            </ul>
-        </div>
-    )
+  
+  return (
+    <div className="movie-container">
+      <h1>Movies</h1>
+        <div className="movie-list">
+          {movies.map((movie) => {
+            return <MovieCard 
+              movie={movie}
+              key={movie.id}
+              // editMovie={editMovie}
+              // deleteMovie={deleteMovie}
+              />
+          })}
+      </div>
+    </div>
+  )
 }
 
-export default Movies
+export default Movies;

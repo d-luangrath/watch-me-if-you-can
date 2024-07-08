@@ -1,26 +1,27 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
+import data from "../data/movies.json";
 import Movies from "./components/Movies";
-
-const moviesData = {
-  results: [
-      {
-          title: 'Movie 1',
-          overview: 'Good',
-          image: '',
-          releaseDate: ''
-      }
-  ]
-}
+import MovieForm from "./components/MovieForm";
+import Header from "./components/Header";
 
 function App() {
-  const [movies, setMovies] = useState(moviesData.results);
+  const [movies, setMovies] = useState(data.results);
+  const [showForm, setShowForm] = useState(false);
+
+
+  const addMovie = (newMovie) => {
+    setMovies([...movies, newMovie])
+  }
 
   return (
     <div className="App">
-      <h1>Movies</h1>
-      <Movies movies={movies}/>
+      <Header showForm={showForm} setShowForm={setShowForm}/>
+      {showForm ? (
+        <MovieForm addMovie={addMovie} />
+        ) : (
+        <Movies movies={movies} />
+      )}
     </div>
   );
 }
