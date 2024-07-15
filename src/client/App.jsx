@@ -1,18 +1,37 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import data from "../data/movies.json";
 import Movies from "./components/Movies";
 import MovieForm from "./components/MovieForm";
 import Header from "./components/Header";
+import axios from "axios";
 
 function App() {
-  const [movies, setMovies] = useState(data.results);
+  const [movies, setMovies] = useState([]);
   const [showForm, setShowForm] = useState(false);
 
+  useEffect(() => {
+    axios
+     .get("/api/movies")
+     .then((res) => {
+       setMovies(res.data);
+     })
+     .catch((err) => {
+      console.log(err);
+     });
+  }, []);
 
   const addMovie = (newMovie) => {
-    setMovies([...movies, newMovie])
-  }
+    axios
+      .post("/api/movies", newMovie)
+      .then((res) => {
+        setMovies(res.data);
+        setShowForm(false);
+      })
+      .catch((err) => {
+        alert("Error adding movie. Please try again.");
+        console.log(err);
+      });
+  };
 
   return (
     <div className="App">

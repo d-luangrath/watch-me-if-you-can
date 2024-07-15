@@ -7,9 +7,9 @@ const app = express();
 
 app.set(express.json());
 
-movieId = movies.length + 1;
-
 const movies = data.results;
+
+let movieId = movies.length + 1;
 
 app.get("/api/movies", (req, res) => {
   res.status(200).json(movies);
@@ -22,7 +22,6 @@ app.post("/api/movies", (req, res) => {
   movieId++;
 
   res.status(201).json(movies);
-
 });
 
 ViteExpress.listen(app, 3000, () =>
