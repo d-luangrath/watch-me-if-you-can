@@ -1,10 +1,28 @@
 import express from "express";
 import ViteExpress from "vite-express";
+import data from "../data/movies.json" assert { type: 'json' } ;
+
 
 const app = express();
 
-app.get("/hello", (req, res) => {
-  res.send("Hello Vite + React!");
+app.set(express.json());
+
+movieId = movies.length + 1;
+
+const movies = data.results;
+
+app.get("/api/movies", (req, res) => {
+  res.status(200).json(movies);
+})
+
+app.post("/api/movies", (req, res) => {
+  const { newMovie } = req.body;
+  const movieWithId = {... newMovie, id: movieId};
+  movies.push(movieWithId);
+  movieId++;
+
+  res.status(201).json(movies);
+
 });
 
 ViteExpress.listen(app, 3000, () =>
