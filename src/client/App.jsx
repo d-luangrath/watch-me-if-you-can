@@ -33,13 +33,40 @@ function App() {
       });
   };
 
+  const editMovie = (id, updatedMovie) => {
+    axios
+      .put(`/api/movies/${id}`, updatedMovie)
+      .then((res) => {
+        setMovies(res.data);
+      })
+      .catch((err) => {
+        alert("Error updating movie. Please try again.");
+        console.log(err);
+      });
+  };
+
+  const deleteMovie = (id) => {
+    axios
+      .delete(`/api/movies/${id}`)
+      .then((res) => {
+        setMovies(res.data);
+      })
+      .catch((err) => {
+        alert("Error deleting movie. Please try again.");
+        console.log(err);
+      });
+  };
+
   return (
     <div className="App">
       <Header showForm={showForm} setShowForm={setShowForm}/>
       {showForm ? (
         <MovieForm addMovie={addMovie} />
         ) : (
-        <Movies movies={movies} />
+        <Movies 
+        movies={movies}
+        editMovie={editMovie}
+        deleteMovie={deleteMovie} />
       )}
     </div>
   );

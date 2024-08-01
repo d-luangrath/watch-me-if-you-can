@@ -1,29 +1,23 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import data from "../data/movies.json" assert { type: 'json' } ;
+import controllerFuncs from "./moviesController";
 
 
 const app = express();
 
-app.set(express.json());
+app.use(express.json());
 
-const movies = data.results;
+const { getMovies, postMovie, putMovie, deleteMovie } = controllerFuncs;
 
-let movieId = movies.length + 1;
+app.get("/api/movies", getMovies);
 
-app.get("/api/movies", (req, res) => {
-  res.status(200).json(movies);
-})
+app.post("/api/movies", postMovie);
 
-app.post("/api/movies", (req, res) => {
-  const { newMovie } = req.body;
-  const movieWithId = {... newMovie, id: movieId};
-  movies.push(movieWithId);
-  movieId++;
+app.put("/api/movies/:id", putMovie);
 
-  res.status(201).json(movies);
-});
+app.delete("/api/movies/:id", deleteMovie);
 
 ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
+  console.log("Server is listening on port 3000...")
 );
