@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MovieCard from "./MovieCard";
 
-function Movies({movies}) {
+function Movies({movies, editMovie, deleteMovie}) {
   
   return (
     <div className="movie-container">
@@ -11,8 +11,8 @@ function Movies({movies}) {
             return <MovieCard 
               movie={movie}
               key={movie.id}
-              // editMovie={editMovie}
-              // deleteMovie={deleteMovie}
+              editMovie={editMovie}
+              deleteMovie={deleteMovie}
               />
           })}
       </div>
