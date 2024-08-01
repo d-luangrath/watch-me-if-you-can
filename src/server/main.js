@@ -1,7 +1,6 @@
 import express from "express";
 import ViteExpress from "vite-express";
-import data from "../data/movies.json" assert { type: 'json' } ;
-import controllerFuncs from "./moviesController";
+import controllerFuncs from "./moviesController.js";
 
 
 const app = express();
